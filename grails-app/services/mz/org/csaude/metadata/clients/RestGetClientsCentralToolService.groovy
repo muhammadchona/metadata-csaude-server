@@ -23,21 +23,15 @@ class RestGetClientsCentralToolService {
 
 
     private static final Logger LOGGER = LoggerFactory
-            .getLogger("RestGetPharmaceuticalFormCentralToolService");
+            .getLogger("LOGGER");
 
     RestClient restClient = new RestClient()
-  //  final String urlPath = 'http://10.1.1.13:8099/'
     private static final String FORMAT_STRING = '| %1$-10s |  %2$-40s|  %3$-30s|';
 
-    private static final String MESSAGE = String.format(
-            FORMAT_STRING,
-            "Id Dispensa",
-            "Nome",
-            "NID");
 
     static lazyInit = false
 
-    //@Scheduled(fixedDelay = 60000L)
+    @Scheduled(cron = "0 0 0 1 * ?")
     void execute() {
         def offset = 0
         def count
@@ -62,8 +56,8 @@ class RestGetClientsCentralToolService {
                 String urlPath = "/api/v1/clients/types?size=100&page=" + offset;
                 LOGGER.info("Iniciando a Busca de Clientes")
                 def response = restClient.requestGetDataOnProvincialServerClient(urlPath)
-                LOGGER.info(MESSAGE)
             if(response.getAt('authenticated') == null) {
+                LOGGER.info("Fim da Busca de Clientes")
                 return clientList;
             }
             for (def clientObject : response) {

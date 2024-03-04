@@ -20,22 +20,15 @@ class RestGetPharmaceuticalFormCentralToolService {
 
 
     private static final Logger LOGGER = LoggerFactory
-            .getLogger("RestGetPharmaceuticalFormCentralToolService");
+            .getLogger("LOGGER");
 
 
- //   final String urlPath = 'http://10.1.1.13:8099/'
     RestClient restClient = new RestClient()
     private static final String FORMAT_STRING = '| %1$-10s |  %2$-40s|  %3$-30s|';
 
-    private static final String MESSAGE = String.format(
-            FORMAT_STRING,
-            "Id Dispensa",
-            "Nome",
-            "NID");
-
     static lazyInit = false
 
-    //@Scheduled(fixedDelay = 60000L)
+    @Scheduled(cron = "0 0 0 1 * ?")
     void execute() {
         def offset = 0
         def count
@@ -59,10 +52,10 @@ class RestGetPharmaceuticalFormCentralToolService {
         PharmaceuticalForm.withTransaction {
             def pharmaceuticalForm = new ArrayList<PharmaceuticalForm>()
                 String urlPath = "/api/v1/meta/pharmaceutical-forms?size=100&page=" + offset;
-                LOGGER.info("Iniciando a Busca de Forma Farmaceutica")
+                LOGGER.debug("Iniciando a Busca de Forma Medicamentos")
                 def response = restClient.requestGetDataOnProvincialServerClient(urlPath)
-                LOGGER.info(MESSAGE)
-            if(response.size() == 0) {
+            if(response.getAt('authenticated') == null) {
+                LOGGER.debug("Fim da Busca de Forma de Medicamentos")
                 return pharmaceuticalForm;
             }
             for (def pharmaceuticalFormObject : response) {

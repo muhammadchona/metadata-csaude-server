@@ -60,7 +60,7 @@ class RestClient {
                 JSONObject jsonResponse = new JSONObject(responseStr);
                 JSONObject resultJson = jsonResponse.getJSONObject("result");
                 JSONArray contentArray = resultJson.getJSONArray("content");
-                println(new JSONArray(contentArray))
+               // println(new JSONArray(contentArray))
                 return new JSONArray(contentArray)
             } else {
                 println("GET request not worked")

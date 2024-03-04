@@ -10,7 +10,9 @@
             <pattern>%clr(%d{yyyy-MM-dd HH:mm:ss.SSS}){faint} %clr(%5p) %clr(---){faint} %clr([%15.15t]){faint} %clr(%-40.40logger{39}){cyan} %clr(:){faint} %m%n%wex</pattern>
         </encoder>
     </appender>
-
+<logger name="LOGGER" class ="mz.org.csaude.metadata.drug.RestGetProductCentralToolService" level="INFO"/>
+    <logger name="LOGGER" class ="mz.org.csaude.metadata.clients.RestGetClientsCentralToolService" level="INFO"/>
+    <logger name="LOGGER" class ="mz.org.csaude.metadata.pharmaceuticalForm.RestGetClientsCentralToolService" level="INFO"/>
     <root level="error">
         <appender-ref ref="STDOUT" />
     </root>

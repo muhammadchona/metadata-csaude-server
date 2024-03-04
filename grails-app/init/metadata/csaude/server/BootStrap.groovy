@@ -55,7 +55,7 @@ class BootStrap {
 
     List<Object> listServers() {
         List<Object> provincialServerList = new ArrayList<>()
-        provincialServerList.add(new LinkedHashMap(id: '7036157a-61c3-4515-9ab8-fc68359d9402', code: '13', urlPath: 'http://10.1.1.13:', port: '5012', destination: 'CENTRAL_TOOL', type: 'PROD'))
+        provincialServerList.add(new LinkedHashMap(id: '7036157a-61c3-4515-9ab8-fc68359d9402', code: '13', urlPath: 'http://10.1.1.13:', port: '8099', destination: 'CENTRAL_TOOL', type: 'PROD'))
         provincialServerList.add(new LinkedHashMap(id: '257016e7-628d-4d72-8b50-c16c32380767', code: '99', urlPath: 'http://10.1.1.13:', port: '8099', destination: 'CENTRAL_TOOL', type: 'TEST'))
 
         return provincialServerList

@@ -3,6 +3,7 @@ package mz.org.csaude.metadata.drug
 import grails.converters.JSON
 import grails.validation.ValidationException
 import mz.org.csaude.metadata.date.JSONSerializer
+import mz.org.csaude.metadata.therapeuticRegimen.Regimen
 
 import static org.springframework.http.HttpStatus.CREATED
 import static org.springframework.http.HttpStatus.NOT_FOUND
@@ -82,5 +83,29 @@ class ProductController {
         }
 
         render status: NO_CONTENT
+    }
+
+    def getProductsByAreas(Integer offset,Integer pageSize) {
+        Regimen regimenTarv = Regimen.findByAreaCode('T')
+        Regimen regimenTB = Regimen.findByAreaCode('TB')
+
+        ArrayList<Regimen> set=new ArrayList();
+        set.add(regimenTarv);
+       set.add(regimenTB);
+
+        def products = Product.createCriteria().listDistinct {
+            therapeuticRegimenList {
+                'in'('areaCode', set*.areaCode) // Assuming 'id' is the identifier field in Regimen
+            }
+            if (offset != null) {
+                firstResult(offset) // Apply offset if it's provided
+            }
+            if (pageSize != null) {
+                maxResults(pageSize) // Apply page size if it's provided
+            }
+
+        }
+
+        render JSONSerializer.setObjectListJsonResponse(products) as JSON
     }
 }
