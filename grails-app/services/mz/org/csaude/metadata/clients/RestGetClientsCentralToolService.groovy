@@ -31,7 +31,7 @@ class RestGetClientsCentralToolService {
 
     static lazyInit = false
 
-    //@Scheduled(cron = "* * * * * ?")
+    @Scheduled(cron = "0 0 0 1 * ?")
     void execute() {
         def offset = 0
         def count
