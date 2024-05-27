@@ -35,7 +35,7 @@ class Client {
         status nullable: false
         updateDate nullable: false
         code nullable: false
-        description nullable: false
+        description nullable: true
         nationalCode nullable: true
         name nullable: true
         address nullable: true //na documentacao vem not null

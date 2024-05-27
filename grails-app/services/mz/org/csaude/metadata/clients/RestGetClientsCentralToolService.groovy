@@ -31,7 +31,7 @@ class RestGetClientsCentralToolService {
 
     static lazyInit = false
 
-    @Scheduled(cron = "0 0 0 1 * ?")
+    //@Scheduled(cron = "* * * * * ?")
     void execute() {
         def offset = 0
         def count
@@ -53,10 +53,10 @@ class RestGetClientsCentralToolService {
     List<Client>  loadClientsFromCentralTool(int offset) {
         Client.withTransaction {
             def clientList = new ArrayList<Client>()
-                String urlPath = "/api/v1/clients/types?size=100&page=" + offset;
+                String urlPath = "/api/v1/clients?size=100&page=" + offset;
                 LOGGER.info("Iniciando a Busca de Clientes")
                 def response = restClient.requestGetDataOnProvincialServerClient(urlPath)
-            if(response.getAt('authenticated') == null) {
+            if(response.size() == 0) {
                 LOGGER.info("Fim da Busca de Clientes")
                 return clientList;
             }
@@ -71,7 +71,7 @@ class RestGetClientsCentralToolService {
                         clientExist.updateDate = DateUtils.createDate(clientObject.getAt(("updateDate")),'yyyy-MM-dd')
                         clientExist.code = clientObject.getAt(("code"))
                         clientExist.description = clientObject.getAt(("description"))
-                        clientExist.nationalCode = clientObject.getAt(("nationalCode")) != null ? clientObject.getAt(("nationalCode")) as int : null
+                        clientExist.nationalCode = clientObject.getAt(("nationalCode")) != null ? clientObject.getAt(("nationalCode")) as String : null
                         clientExist.name = clientObject.getAt(("name"))
                         clientExist.address = clientObject.getAt(("address"))
                         clientExist.phone = clientObject.getAt(("phone"))
